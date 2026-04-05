@@ -589,7 +589,7 @@
             <div class="kanban-column" id="to-read">
                 <div class="column-header">
                     <span class="column-title">TO READ</span>
-                    <span class="column-count">4</span>
+                    <span class="column-count">0</span>
                 </div>
                 <div class="card-list" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
                 </div>
@@ -682,6 +682,7 @@
                 document.querySelectorAll('.card-list').forEach(list => list.innerHTML = '');
                 loadArchive();
             }
+            updateCounts(); // Ensure counts reflect current state (even if empty)
         });
 
         function toggleModal(show) {
