@@ -50,5 +50,14 @@
     <div id="audio-player-mount"></div>
 
     <script src="components.js"></script>
+    <script>
+        // Handle deep-linking through the shell
+        const params = new URLSearchParams(window.location.search);
+        const targetPage = params.get('page');
+        if (targetPage) {
+            const frame = document.getElementById('content-frame');
+            if (frame) frame.src = targetPage;
+        }
+    </script>
 </body>
 </html>

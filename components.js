@@ -13,11 +13,12 @@ function renderHeader() {
             <div class="nav-inner">
                 <div class="nav-title">ARCHITECTURE OF SILENCE</div>
                 <div class="nav-links">
-                    <a href="#" data-page="home.html" class="nav-link active">THE ARCHIVE</a>
+                    <a href="#" data-page="home.html" class="nav-link">THE ARCHIVE</a>
                     <a href="#" data-page="system.html" class="nav-link">SYSTEM OVERVIEW</a>
                     <a href="#" data-page="analysis.html" class="nav-link">STRUCTURAL ANALYSIS</a>
                     <a href="#" data-page="failure.html" class="nav-link">CRITICAL FRACTURE</a>
                     <a href="#" data-page="album.html" class="nav-link">THE ALBUM</a>
+                    <a href="#" data-page="research.html" class="nav-link">RESEARCH</a>
                     <div class="nav-underline"></div>
                 </div>
             </div>
@@ -34,26 +35,38 @@ function renderHeader() {
             underline.style.left = `${activeLink.offsetLeft}px`;
         }
 
-        // Initial position
+        // Initial position and active state
+        const params = new URLSearchParams(window.location.search);
+        const currentFile = params.get('page') || 'home.html';
+        
+        links.forEach(link => {
+            const page = link.getAttribute('data-page');
+            if (currentFile === page) {
+                link.classList.add('active');
+            }
+        });
+
         setTimeout(() => updateUnderline(nav.querySelector('.nav-link.active')), 100);
 
         links.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const targetPage = link.getAttribute('data-page');
-                if (link.classList.contains('active')) return;
 
-                if (frame) frame.classList.add('fading');
-                links.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
-                updateUnderline(link);
+                if (frame) {
+                    frame.classList.add('fading');
+                    links.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    updateUnderline(link);
 
-                setTimeout(() => {
-                    if (frame) {
+                    setTimeout(() => {
                         frame.src = targetPage;
                         frame.onload = () => frame.classList.remove('fading');
-                    }
-                }, 500); 
+                    }, 500);
+                } else {
+                    // Universal redirect if not in shell
+                    window.location.href = targetPage;
+                }
             });
         });
     } else {
@@ -189,6 +202,23 @@ function initAudioSystem() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Self-Shelling Logic: 
+    // If a page is opened standalone (not in iframe), and it's not the index itself,
+    // redirect to the shell to ensure audio persistence.
+    const path = window.location.pathname;
+    const isShell = path.endsWith('index.html') || path.endsWith('/');
+    const isLocalFile = window.location.protocol === 'file:';
+    
+    // Exception for the shell or if already in a frame
+    if (window === window.top && !isShell) {
+        // For file protocol, we use the filename. For others, we might need more logic but this is the archive's structure.
+        const currentFile = path.split('/').pop() || 'home.html';
+        if (currentFile !== 'index.html' && currentFile !== '') {
+            window.location.href = `index.html?page=${currentFile}`;
+            return;
+        }
+    }
+
     renderHeader();
     initAudioSystem();
 });
