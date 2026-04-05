@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Overview | Architecture of Silence</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page-specific overrides */
+        body { padding-bottom: 15rem; }
+        
+        .split-top {
+            display: block;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto 4rem;
+            padding: 0 4vw;
+        }
+
+        .intro-side {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .video-side {
+            flex: 1.2;
+            position: relative;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            background: #000;
+            border: 1px solid var(--metal);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            outline: none;
+        }
+
+        .manifesto-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 4rem 4vw;
+        }
+
+        h1 {
+            font-family: 'KH Giga';
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.1;
+            margin: 1.5rem 0;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: 'KH Giga';
+            font-size: 1.8rem;
+            margin: 4rem 0 2rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--metal);
+            padding-bottom: 1rem;
+        }
+
+        h3 {
+            font-family: 'KH Giga';
+            font-size: 1.2rem;
+            margin: 2.5rem 0 1rem;
+            text-transform: uppercase;
+            color: var(--metadata-faded);
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .highlight-box {
+            background: rgba(189, 181, 169, 0.1);
+            padding: 2rem;
+            border-left: 4px solid var(--ink);
+            margin: 3rem 0;
+            font-style: italic;
+        }
+
+        .table-wrapper {
+            margin: 3rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--metal);
+            background: rgba(255,255,255,0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(189, 181, 169, 0.2);
+        }
+
+        th {
+            font-family: 'KH Giga';
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            background: rgba(189, 181, 169, 0.05);
+        }
+
+        ul {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        li {
+            padding-left: 2rem;
+            position: relative;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .summary-callout {
+            text-align: center;
+            font-family: 'KH Giga';
+            font-size: 1.4rem;
+            padding: 4rem 2rem;
+            border: 2px dashed var(--metal);
+            margin: 5rem 0;
+            color: var(--accent);
+        }
+
+        @media (max-width: 1024px) {
+            .split-top {
+                flex-direction: column-reverse;
+                margin-top: 3rem;
+            }
+            .intro-side, .video-side {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav" class="vellum-nav"></nav>
+
+    <div class="split-top content-top-buffer">
+        <h2>The Thesis of the Recursive Pattern</h2>
+        
+        <div class="side-by-side">
+            <div class="intro-side">
+                <p>
+                    The "Architecture of Silence" project is a clinical and musical autopsy of internal psychological states, specifically mapping the recursive cycle of hyper-vigilance and systemic over-control. From a design strategy perspective, this project utilizes architectural metaphors to visualize the unseen machinery of the analytical mind—a framework that prioritizes survival over accuracy.
+                </p>
+                <div class="highlight-box">
+                    "By mapping these internal layers, we expose the tragedy of the 'Recursive Pattern': how we over-engineer safety until we repeat the same failures."
+                </div>
+                <p>
+                    The system is governed by a central Design Paradox: the very mechanisms deployed to prevent failure—constant monitoring, internal reinforcement, and the suppression of instability—become the primary engines of eventual collapse. 
+                </p>
+            </div>
+
+            <div class="video-side">
+                <div class="video-wrapper">
+                    <video id="overview-video" controls poster="./assets/img/structure-elevation.png">
+                        <source src="./assets/video/The_Architecture_of_Silence__System Overview.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <p class="metadata-label" style="margin-top: 1.5rem; text-align: left;">Diagnostic Media: System_Overview.mov // 1080p_Archival_Master</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="manifesto-container">
+        <section>
+            <h2>The Autonomic Scaffold: Internal Layer Mechanics</h2>
+            <div class="side-by-side">
+                <div>
+                    <p>
+                        The Autonomic Scaffold serves as the primary internal engine of the architecture. It is a self-regulating, non-stop system designed for survival rather than precision. This scaffold does not idle; it is a restless, skeletal dome that operates on a mandate of total prevention. 
+                    </p>
+                    
+                    <h3>Core Operating Rules</h3>
+                    <ul>
+                        <li><strong>Continuous Operation</strong>: The system never idles; it is always scanning, interpreting, and adjusting.</li>
+                        <li><strong>Prevention over Accuracy</strong>: The system does not need to be right; it only needs to avoid the perceived failure of the moment.</li>
+                        <li><strong>Additive Response Only</strong>: The system cannot reduce complexity or simplify; it can only add structure.</li>
+                        <li><strong>Future-Oriented Processing</strong>: The machinery is always accelerating, acting on anticipated outcomes rather than current realities.</li>
+                    </ul>
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Mechanical Function</th>
+                                <th>Operational Property</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>The Lantern</td>
+                                <td>Converts external events into neutral internal signals.</td>
+                                <td>Neutral intake; primary transducer.</td>
+                            </tr>
+                            <tr>
+                                <td>The Oculus</td>
+                                <td>Processes signals for pattern recognition.</td>
+                                <td>Biased toward detecting risk; interpretive layer.</td>
+                            </tr>
+                            <tr>
+                                <td>The Ribs</td>
+                                <td>Executes structural response and tension.</td>
+                                <td>Escalatory; reinforcement layer.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Concrete Mask: The Surface of Performance</h2>
+            <p>
+                The "Concrete Mask" is the system's containment layer, a passive pressure vessel designed for the performance of stability. It presents "silence" as a finished, solid object to the external world, ensuring that internal turbulence remains invisible. 
+            </p>
+            
+            <ul>
+                <li><strong>The Outer Shell</strong>: The visible layer. Communicates "everything is fine."</li>
+                <li><strong>The Structural Body</strong>: Load-bearing mass. Strong but brittle.</li>
+                <li><strong>The Microfracture Network</strong>: Hidden layer of irreversible damage.</li>
+                <li><strong>The Boundary Interface</strong>: Where the Mask meets the Scaffold; the critical site of pressure transfer.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Baroque Logic and the Analytical Mind</h2>
+            <div class="side-by-side">
+                <div>
+                    <p>
+                        To represent the analytical mind's attempt to navigate this tension, the project adopts an aesthetic of 90s indie-label restraint combined with Baroque-inspired counterpoint. This is a diagnostic choice; rhythm and counterpoint act as the diagnostic tools for the narrator’s busy brain.
+                    </p>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Musical Module</th>
+                                <th>Architectural Pairing</th>
+                                <th>Conceptual Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Let It Sit</td>
+                                <td>The Lantern</td>
+                                <td>Primary diagnostic port; raw data intake.</td>
+                            </tr>
+                            <tr>
+                                <td>Gone Before Goodbye</td>
+                                <td>The Oculus</td>
+                                <td>The moment of "Silent Realization."</td>
+                            </tr>
+                            <tr>
+                                <td>Say It Like It Holds</td>
+                                <td>The Ribs</td>
+                                <td>Structural clinch & reinforcement; performing authority under load.</td>
+                            </tr>
+                            <tr>
+                                <td>Set In Motion</td>
+                                <td>The Fracture Point</td>
+                                <td>The moment of terminal breach; irreversible structural failure.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The Critical Clinch: Failure and Rupture</h2>
+            <div class="side-by-side">
+                <div>
+                    <p>
+                        The failure model is characterized by a sudden rupture of the Mask rather than a collapse of the internal Scaffold. Because the system prioritizes stability over resolution, there are no gradual warnings—only an instant fracture when the internal pressure crosses the structural threshold.
+                    </p>
+                    <p>
+                        The tragedy of the post-failure state is that the system interprets the rupture not as a sign to reduce pressure, but as evidence of "insufficient control." The Scaffold responds by increasing monitoring, entrenching the subject in a state of permanent hyper-vigilance.
+                    </p>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>State</th>
+                                <th>External Performance (Mask)</th>
+                                <th>Internal Reality (Scaffold)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard Operation</td>
+                                <td>Controlled, consistent, and calcified.</td>
+                                <td>Constant activity and recursive processing.</td>
+                            </tr>
+                            <tr>
+                                <td>Clinch State</td>
+                                <td>The illusion of "Silence."</td>
+                                <td>Escalating complexity; high-tension signals.</td>
+                            </tr>
+                            <tr>
+                                <td>Rupture Point</td>
+                                <td>Sudden structural breach.</td>
+                                <td>Additive response acceleration; hyper-vigilance.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <div class="summary-callout" style="border: none; border-top: 1px solid var(--metal); padding-top: 2rem;">
+            "The scaffold builds without limit, the mask contains without release, and the system fails when these two truths inevitably collide."
+        </div>
+    </main>
+
+    <script src="components.js"></script>
+    <script>
+        const video = document.getElementById('overview-video');
+
+        // Logic to fade out music when video starts
+        video.onplay = () => {
+            if (window.top) {
+                window.top.postMessage({ type: 'MUTE_FOR_VIDEO' }, '*');
+            }
+        };
+
+        // Fade music back in when video ends
+        video.onended = () => {
+            if (window.top) {
+                window.top.postMessage({ type: 'RESUME_AFTER_VIDEO' }, '*');
+            }
+        };
+
+        // Note: Music stays paused until user manually resumes it.
+    </script>
+</body>
+</html>

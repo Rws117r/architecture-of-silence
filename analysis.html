@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structural Analysis v2 | Architecture of Silence</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page-specific overrides */
+        body { overflow: hidden; height: 100vh; }
+
+
+
+        /* Assembly Tabs */
+        .assembly-tabs {
+            position: absolute;
+            top: 4%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1.5rem;
+            z-index: 20;
+        }
+
+        .assembly-tab {
+            background: rgba(240, 236, 230, 0.4);
+            border: 1px solid var(--metal);
+            padding: 0.5rem 1.5rem;
+            border-radius: 2rem;
+            color: var(--metadata-faded);
+            font-family: 'KH Giga';
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .assembly-tab:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .assembly-tab.active {
+            background: var(--accent);
+            color: var(--background);
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.2);
+        }
+
+        .hidden-node {
+            display: none !important;
+        }
+
+        /* Structural Viewer */
+        .viewer {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .dome-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .iso-dome {
+            max-width: 60%;
+            max-height: 60vh;
+            filter: grayscale(100%) sepia(20%) contrast(1.1);
+            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 5;
+            margin-top: 20vh;
+        }
+
+        /* SVG Leader Lines */
+        .leader-lines-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .leader-path {
+            stroke: var(--metal);
+            stroke-width: 1;
+            stroke-dasharray: 4, 3;
+            fill: none;
+            opacity: 0.3;
+            transition: opacity 0.4s, stroke 0.4s;
+        }
+
+        .leader-path.active {
+            stroke: var(--accent);
+            opacity: 1;
+            stroke-width: 1.5;
+            stroke-dasharray: none;
+        }
+
+        .leader-dot {
+            fill: var(--metal);
+            opacity: 0.3;
+            transition: fill 0.4s, opacity 0.4s;
+        }
+
+        .leader-dot.active {
+            fill: var(--accent);
+            opacity: 1;
+        }
+
+        .analysis-note {
+            width: 450px;
+            background: var(--vellum);
+            border-left: 1px solid var(--metal);
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease;
+            pointer-events: none;
+            overflow-y: auto;
+            z-index: 10;
+            position: relative;
+        }
+
+
+
+        .nav-controls {
+            margin-top: auto;
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--metal);
+        }
+
+        .phase-nav-btn {
+            background: none;
+            border: 1px solid var(--metal);
+            color: var(--ink);
+            padding: 0.6rem 1rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .phase-nav-btn:hover:not(:disabled) {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+        }
+
+        .phase-nav-btn:disabled {
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .analysis-note.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .note-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .note-header h2 {
+            font-family: 'KH Giga';
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin: 1rem 0;
+        }
+
+        .play-evidence-btn {
+            width: 100%;
+            background: var(--ink);
+            color: var(--background);
+            border: 1px solid var(--ink);
+            padding: 1rem;
+            font-family: 'KH Giga';
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .play-evidence-btn:hover {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .audio-container {
+            margin-top: 2rem;
+            border-top: 1px dashed rgba(189,181,169,0.5);
+            padding-top: 1.5rem;
+        }
+
+
+        .description-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #3a342e;
+            margin-bottom: 1.5rem;
+        }
+
+        .rationale-box {
+            background: rgba(189, 181, 169, 0.05);
+            padding: 1.5rem;
+            border-left: 2px solid var(--metal);
+            margin-top: 1rem;
+        }
+
+        .rationale-title {
+            font-family: 'KH Giga';
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            color: var(--ink);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale-text {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #5a544e;
+            line-height: 1.6;
+        }
+
+
+        /* Side-positioned Node Sources */
+        .hotspot-source {
+            position: absolute;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--metal);
+            border-radius: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--background);
+            z-index: 100;
+            font-family: 'KH Giga';
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hotspot-source::after {
+            content: attr(data-label);
+            position: absolute;
+            white-space: nowrap;
+            font-size: 0.5rem;
+            font-weight: 300;
+            font-family: 'PP Fraktion';
+            letter-spacing: 0.1em;
+            top: -1.2rem;
+            left: 0.5rem;
+            opacity: 0.6;
+        }
+
+        .hotspot-source:hover {
+            border-color: var(--ink);
+            transform: scale(1.1);
+        }
+
+        .hotspot-source.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--background);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+
+        /* Specific node coordinates (Left/Right gutters - Top to Bottom order) */
+        #s-lantern {
+            left: 15%;
+            top: 35%;
+        }
+
+        #s-oculus {
+            left: 15%;
+            top: 55%;
+        }
+
+        #s-ribs {
+            left: 15%;
+            top: 75%;
+        }
+
+        #s-mask {
+            left: 15%;
+            top: 55%;
+        }
+
+        @media (max-width: 1000px) {
+            .analysis-note {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                height: 40vh;
+                border-left: none;
+                border-top: 1px solid var(--metal);
+            }
+
+            .viewer {
+                padding-bottom: 40vh;
+            }
+
+            #s-lantern,
+            #s-oculus,
+            #s-ribs,
+            #s-mask {
+                left: 5vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav" class="vellum-nav"></nav>
+
+    <div class="viewer content-top-buffer">
+        <div class="dome-container" id="domeContainer">
+            <div class="assembly-tabs">
+                <button class="assembly-tab active" data-target="scaffold">AUTONOMIC SCAFFOLD</button>
+                <button class="assembly-tab" data-target="mask">CONCRETE MASK</button>
+            </div>
+            <div style="position: absolute; top: 12%; left: 50%; transform: translateX(-50%); text-align: center; z-index: 10; pointer-events: none; width: 100%;">
+                <h1 id="scaffoldTitle" style="font-family: 'KH Giga'; font-weight: 900; font-size: 2.2rem; letter-spacing: 0.05em; color: var(--ink); opacity: 0.9; margin: 0;">THE AUTONOMIC SCAFFOLD</h1>
+            </div>
+            <!-- SVG Overlay for Leader Lines -->
+            <svg class="leader-lines-svg" id="leaderSvg" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+                <path class="leader-path" id="p-oculus" d=""></path>
+                <circle class="leader-dot" id="d-oculus" cx="0" cy="0" r="4"></circle>
+                
+                <path class="leader-path" id="p-ribs" d=""></path>
+                <circle class="leader-dot" id="d-ribs" cx="0" cy="0" r="4"></circle>
+                
+                <path class="leader-path" id="p-lantern" d=""></path>
+                <circle class="leader-dot" id="d-lantern" cx="0" cy="0" r="4"></circle>
+
+            </svg>
+
+            <img src="assets/img/structure-iso.png" alt="Skeletal Dome Model" class="iso-dome" id="domeImg">
+
+            <!-- Side Source Nodes (Ordered Top to Bottom) -->
+            <div class="hotspot-source" id="s-lantern" data-assembly="scaffold" data-id="let-it-sit" data-label="LANTERN EX.03">Let It Sit</div>
+            <div class="hotspot-source" id="s-oculus" data-assembly="scaffold" data-id="gone-before-goodbye" data-label="OCULUS EX.01">Gone Before Goodbye</div>
+            <div class="hotspot-source" id="s-ribs" data-assembly="scaffold" data-id="say-it-like-it-holds" data-label="RIBS EX.04">Say It Like It Holds</div>
+            <div class="hotspot-source hidden-node" id="s-mask" data-assembly="mask" data-id="concrete-mask" data-label="EXTERNAL EX.00">The Concrete Mask</div>
+        </div>
+
+        <aside class="analysis-note" id="analysisNote">
+            <div id="noteContent">
+                <span class="metadata-label">Analytical Observation</span>
+                <span class="metadata-label">COMPONENT: --</span>
+                <h2>Skeletal Diagnostics</h2>
+                <p class="description-text">Select a structural waypoint to examine the diagnostic mapping of the
+                    album's emotional infrastructure.</p>
+            </div>
+        </aside>
+    </div>
+
+    <script src="components.js"></script>
+    <script>
+        const MAPPING_DATA = {
+            "let-it-sit": {
+                phase: "PHASE A: INITIAL INTAKE",
+                component: "THE LANTERN (THE TRANSDUCER)",
+                title: "Let It Sit",
+                description: "The lantern acts as a structural transducer, converting emotional intake into internal load. It is the primary diagnostic port where external events are processed by the underlying architecture.",
+                rationale: "As a 'Transducer', the Lantern simply captures the energy of the event and passes the structural signal down to the Oculus.",
+                audioFile: "assets/audio/03 - Let It Sit.mp3"
+            },
+            "gone-before-goodbye": {
+                phase: "PHASE B: INTERPRETATION",
+                component: "THE OCULUS (THE INTERPRETIVE LAYER)",
+                title: "Gone Before Goodbye",
+                description: "The oculus serves as the structural processor. It receives raw intake from the transducer and attempts to decode it, determining if the internal architecture needs to react.",
+                rationale: "This is the layer of 'Silent Realization.' It interprets the event and signals the ribs to reinforce the structure—converting external silence into internal action.",
+                audioFile: "assets/audio/01 - Gone Before Goodbye.mp3"
+            },
+            "say-it-like-it-holds": {
+                phase: "PHASE C: REINFORCEMENT",
+                component: "THE RIBS (REINFORCED FRAMEWORK)",
+                title: "Say It Like It Holds",
+                description: "Based on the interpretation provided by the oculus, the ribs self-reinforce. This creates a defensive loop of increasing structural tension.",
+                rationale: "The ribs respond to the 'Interpretive Layer' by entering a mechanical clinch, stiffening the internal architecture to guard against perceived failure. This creates the peak pressure that will eventually rupture the Mask.",
+                audioFile: "assets/audio/02 - Say It Like It Holds.mp3"
+            },
+            "concrete-mask": {
+                phase: "EXTERNAL SHELL",
+                component: "THE CONCRETE MASK",
+                title: "[DATA CORRUPTED / IN DEVELOPMENT]",
+                description: "Analysis of the external pressure vessel is currently pending. This layer projects the absolute performance of silence and isolates the internal stress of the Autonomic Scaffold.",
+                rationale: "Pending structural scan and acoustic diagnostic.",
+                mainImg: "assets/img/Concrete Mask.png"
+            }
+        };
+
+        const ASSEMBLY_DATA = {
+            "scaffold": {
+                title: "THE AUTONOMIC SCAFFOLD",
+                img: "assets/img/structure-iso.png",
+                order: ["let-it-sit", "gone-before-goodbye", "say-it-like-it-holds"]
+            },
+            "mask": {
+                title: "THE CONCRETE MASK",
+                img: "assets/img/Concrete Mask.png",
+                order: ["concrete-mask"]
+            }
+        };
+
+        let currentAssembly = "scaffold";
+        let PHASE_ORDER = ASSEMBLY_DATA[currentAssembly].order;
+        let currentPhaseIndex = -1;
+
+        const TARGET_COORDS = {
+            "s-oculus": { x: 500, y: 310 },
+            "s-ribs": { x: 500, y: 450 },
+            "s-lantern": { x: 500, y: 155 },
+            "s-mask": { x: 500, y: 500 }
+        };
+
+        function updatePaths() {
+            const containerRect = document.getElementById('domeContainer').getBoundingClientRect();
+
+            Object.keys(TARGET_COORDS).forEach(sourceId => {
+                const sourceEl = document.getElementById(sourceId);
+                const pathEl = document.getElementById(sourceId.replace('s-', 'p-'));
+                const dotEl = document.getElementById(sourceId.replace('s-', 'd-'));
+
+                if (!sourceEl || !pathEl || !dotEl) return;
+
+                if (sourceEl.classList.contains('hidden-node')) {
+                    pathEl.style.display = 'none';
+                    dotEl.style.display = 'none';
+                    return;
+                } else {
+                    pathEl.style.display = 'block';
+                    dotEl.style.display = 'block';
+                }
+
+                const sourceRect = sourceEl.getBoundingClientRect();
+
+                // Convert screen px to viewBox (1000x1000) coords
+                const startX = ((sourceRect.left + sourceRect.width / 2) - containerRect.left) / containerRect.width * 1000;
+                const startY = ((sourceRect.top + sourceRect.height / 2) - containerRect.top) / containerRect.height * 1000;
+
+                const targetX = TARGET_COORDS[sourceId].x;
+
+                // Simple horizontal line
+                pathEl.setAttribute('d', `M ${startX} ${startY} L ${targetX} ${startY}`);
+                
+                dotEl.setAttribute('cx', targetX);
+                dotEl.setAttribute('cy', startY);
+            });
+        }
+
+        const sources = document.querySelectorAll('.hotspot-source');
+        const note = document.getElementById('analysisNote');
+        const noteContent = document.getElementById('noteContent');
+
+        function activateTourStep(trackId) {
+            const data = MAPPING_DATA[trackId];
+            const sourceEl = document.querySelector(`.hotspot-source[data-id="${trackId}"]`);
+            const pathId = sourceEl.id.replace('s-', 'p-');
+            
+            currentPhaseIndex = PHASE_ORDER.indexOf(trackId);
+
+            // Clear active states
+            sources.forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.leader-path').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.leader-dot').forEach(d => d.classList.remove('active'));
+
+            sourceEl.classList.add('active');
+            
+            const pathNode = document.getElementById(pathId);
+            if (pathNode) pathNode.classList.add('active');
+            
+            const dotNode = document.getElementById(pathId.replace('p-', 'd-'));
+            if (dotNode) dotNode.classList.add('active');
+
+            // Update Note
+            note.classList.remove('active');
+            setTimeout(() => {
+
+                noteContent.innerHTML = `
+                    <span class="metadata-label">${data.phase}</span>
+                    <span class="metadata-label" style="margin-bottom: 1.5rem;">COMPONENT: ${data.component}</span>
+                    <p class="description-text">${data.description}</p>
+                    
+                    ${data.audioFile ? `
+                    <div class="audio-container">
+                        <button class="play-evidence-btn" onclick="triggerGlobalTrack('${trackId}')">Play Song: ${data.title}</button>
+                    </div>
+                    ` : ''}
+
+                    <div class="rationale-box">
+                        <span class="rationale-title">Recorded Outcome</span>
+                        <p class="rationale-text">"${data.rationale}"</p>
+                    </div>
+
+                `;
+
+                if (document.getElementById('prevBtn')) document.getElementById('prevBtn').onclick = () => activateTourStep(PHASE_ORDER[currentPhaseIndex - 1]);
+                if (document.getElementById('nextBtn')) document.getElementById('nextBtn').onclick = () => activateTourStep(PHASE_ORDER[currentPhaseIndex + 1]);
+
+                note.classList.add('active');
+            }, 200);
+        }
+
+
+        sources.forEach(source => {
+            source.addEventListener('click', () => {
+                activateTourStep(source.getAttribute('data-id'));
+            });
+        });
+
+        document.querySelectorAll('.assembly-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetAssembly = tab.getAttribute('data-target');
+                if (targetAssembly === currentAssembly) return;
+
+                currentAssembly = targetAssembly;
+                PHASE_ORDER = ASSEMBLY_DATA[currentAssembly].order;
+
+                document.querySelectorAll('.assembly-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                const domeImg = document.getElementById('domeImg');
+                const scaffoldTitle = document.getElementById('scaffoldTitle');
+                
+                domeImg.src = ASSEMBLY_DATA[currentAssembly].img;
+                scaffoldTitle.innerText = ASSEMBLY_DATA[currentAssembly].title;
+
+                document.querySelectorAll('.hotspot-source').forEach(node => {
+                    if (node.getAttribute('data-assembly') === currentAssembly) {
+                        node.classList.remove('hidden-node');
+                    } else {
+                        node.classList.add('hidden-node');
+                    }
+                });
+
+                updatePaths();
+                activateTourStep(PHASE_ORDER[0]);
+            });
+        });
+
+        window.addEventListener('resize', updatePaths);
+        window.addEventListener('load', () => {
+            updatePaths();
+            // Auto-start at Phase A (The Transducer) to guide the user immediately
+            activateTourStep('let-it-sit');
+        });
+        // Initial path update
+        setTimeout(updatePaths, 500);
+
+    </script>
+    <script src="components.js"></script>
+</body>
+
+</html>

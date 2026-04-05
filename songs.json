@@ -1,0 +1,38 @@
+[
+  {
+    "id": "gone-before-goodbye",
+    "title": "Gone Before Goodbye",
+    "theme": "The Hollow Before",
+    "description": "The shock of noticing the 'hollow' before the actual end.",
+    "position": { "x": 15, "y": 20 },
+    "tier": "surface-low",
+    "connections": ["say-it-like-it-holds"]
+  },
+  {
+    "id": "say-it-like-it-holds",
+    "title": "Say It Like It Holds",
+    "theme": "Performative Stability",
+    "description": "The performance of authority while the foundation is shifting.",
+    "position": { "x": 45, "y": 35 },
+    "tier": "surface-high",
+    "connections": ["let-it-sit"]
+  },
+  {
+    "id": "let-it-sit",
+    "title": "Let It Sit",
+    "theme": "Internalized Pressure",
+    "description": "The decision to keep the pressure internal, letting it build in the silence.",
+    "position": { "x": 65, "y": 60 },
+    "tier": "surface-highest",
+    "connections": ["set-in-motion"]
+  },
+  {
+    "id": "set-in-motion",
+    "title": "Set In Motion",
+    "theme": "Irrevocable Change",
+    "description": "The climax of control, where trying to 'steady' the ground sets irrevocable changes in motion.",
+    "position": { "x": 85, "y": 75 },
+    "tier": "surface-container-highest",
+    "connections": []
+  }
+]

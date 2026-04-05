@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Fracture Study | Architecture of Silence</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Page-specific overrides */
+        body { overflow-y: auto; min-height: 100vh; padding-bottom: 10rem; }
+
+
+
+        /* Report Layout */
+        .report-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .report-header {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--metal);
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'KH Giga';
+            font-size: 3rem;
+            line-height: 1;
+            margin: 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-family: 'KH Giga';
+            font-size: 1.5rem;
+            margin: 3rem 0 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .play-evidence-btn {
+            width: 100%;
+            background: var(--ink);
+            color: var(--background);
+            border: 1px solid var(--ink);
+            padding: 1rem;
+            font-family: 'KH Giga';
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        .play-evidence-btn:hover {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .audio-container {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .analysis-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #3a342e;
+            margin-bottom: 2rem;
+        }
+
+        .analysis-text strong {
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        /* Figure Styling */
+        .technical-figure {
+            margin: 5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .mask-visual {
+            max-width: 100%;
+            width: 600px;
+            height: auto;
+            mix-blend-mode: multiply;
+            filter: contrast(1.05) brightness(1.02);
+            margin-bottom: 1.5rem;
+        }
+
+        figcaption {
+            font-size: 0.75rem;
+            font-style: italic;
+            color: var(--metadata-faded);
+            text-align: center;
+            letter-spacing: 0.02em;
+            border-top: 1px solid rgba(189, 181, 169, 0.2);
+            padding-top: 1rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .conclusion-block {
+            background: rgba(189, 181, 169, 0.05);
+            padding: 3rem;
+            border: 1px solid var(--metal);
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .conclusion-block::before {
+            content: "TECHNICAL CONCLUSION";
+            position: absolute;
+            top: -0.6rem;
+            left: 2rem;
+            background: var(--background);
+            padding: 0 1rem;
+            font-family: 'KH Giga';
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--ink);
+        }
+
+        .conclusion-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.7;
+            color: #5a544e;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .report-content { margin-top: 4rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="main-nav" class="vellum-nav"></nav>
+
+    <main class="report-content content-top-buffer">
+        <header class="report-header">
+            <span class="metadata-label">Module: Failure.Report.01 / Case Study</span>
+            <h1>CRITICAL FRACTURE ANALYSIS</h1>
+            <div class="audio-container">
+                <button class="play-evidence-btn" onclick="triggerGlobalTrack('Set In Motion', './assets/audio/04 - Set In Motion.mp3')">Play Song: Set In Motion</button>
+            </div>
+            <p class="metadata-label" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(189,181,169,0.5);">Subject: The Concrete Mask (Pressure Vessel Breach)</p>
+        </header>
+
+        <section>
+            <p class="analysis-text">
+                The fracture of the concrete mask is not a failure of the skeletal structure itself, but a 
+                predictable outcome of the <strong>Mechanical Clinch</strong>. The architecture functions 
+                as a reactive system where the internal framework (The Ribs - <em>Say It Like It Holds</em>) 
+                over-reinforces for control to absolute saturation.
+            </p>
+            <p class="analysis-text">
+                The mask serves as a <strong>Performative Pressure Vessel</strong>. It is designed to 
+                contain the internal storm of structural stress, presenting outward as a smooth, finished 
+                object of silence. However, as the internal clinch intensifies, the outward thrust exceeds 
+                the tensile capacity of the shell.
+            </p>
+        </section>
+
+        <figure class="technical-figure">
+            <img src="./assets/img/core-icon.png" alt="Observed Mask Fracture" class="mask-visual">
+            <figcaption>
+                FIGURE 01: Observed Terminal Fracture. Recorded at the moment of structural clinch 
+                saturation. The breach reveals the intricate machinery surviving beneath the failed performance.
+            </figcaption>
+        </figure>
+
+        <section>
+            <h2>Analysis of Phase D</h2>
+            <p class="analysis-text">
+                This stress event marks the moment where "having it under control" is destroyed by the 
+                <strong>actual effort</strong> of trying to control it. The architecture survives the breach; 
+                it is only the calcified performance (The Mask) that is lost.
+            </p>
+        </section>
+
+        <div class="conclusion-block">
+            <p class="conclusion-text">
+                "The 'Fracture' is a recorded failure of the mask to container internal reinforcement 
+                stresses. It bridges the gap between the static blueprint of the dome and the kinetic 
+                reality of the failed performance."
+            </p>
+        </div>
+    <script src="components.js"></script>
+</body>
+
+</html>

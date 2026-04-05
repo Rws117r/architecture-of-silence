@@ -1,0 +1,12 @@
+# System files
+.DS_Store
+Thumbs.db
+.gemini/
+.antigravity/
+
+# IDE files
+.vscode/
+.idea/
+
+# Large assets (optional, keeping them for now as they are under 100MB)
+# assets/video/

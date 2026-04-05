@@ -1,0 +1,408 @@
+@font-face {
+  font-family: 'KH Giga';
+  src: url('./assets/fonts/KHGigaTRIAL-Regular.woff2') format('woff2');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'KH Giga';
+  src: url('./assets/fonts/KHGigaTRIAL-Bold.woff2') format('bold');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'KH Giga';
+  src: url('./assets/fonts/KHGigaTRIAL-Black.woff2') format('woff2');
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'PP Fraktion';
+  src: url('./assets/fonts/PPFraktionSans-Light.otf') format('opentype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'PP Fraktion';
+  src: url('./assets/fonts/PPFraktionSans-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+:root {
+  --background: #f4f1ec;
+  --ink: #1f1c19;
+  --earth: #e6e3e2;
+  --metal: #bdb5a9;
+  
+  --surface-low: #faf7f2;
+  --surface-sandstone: #f0ece6;
+  --surface-concrete: #e3ddd5;
+  --surface-highest: #d6cec4;
+  
+  --vellum: rgba(240, 236, 230, 0.75);
+  --metadata-faded: #9a9085;
+  --accent: #8b0000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--ink);
+  font-family: 'PP Fraktion', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* The Underneath (Core Structure) */
+.core-underneath {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 70vw;
+  max-width: 800px;
+  max-height: 800px;
+  background-image: url('assets/img/structure-elevation.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.15;
+  filter: grayscale(100%) sepia(20%) contrast(1.1);
+  z-index: -2;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  pointer-events: none;
+}
+
+/* Mask Layer for Tearing Effects */
+.fracture-canvas {
+  position: relative;
+  z-index: 1;
+}
+
+/* Micro-grain Noise Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 1000;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3, .display-lg {
+  font-family: 'KH Giga', serif;
+  font-weight: 900;
+}
+
+.archival-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 8vw 4vw;
+}
+
+.monumental-header {
+  margin-bottom: 15vh;
+  position: relative;
+}
+
+.display-lg {
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.metadata-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--metadata-faded);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Structural Layout */
+.blueprint-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2rem;
+  position: relative;
+}
+
+.song-module {
+  grid-column: span 5;
+  padding: 3rem;
+  position: relative;
+  transition: transform 0.4s ease, background-color 0.4s ease;
+  background-color: var(--surface-low);
+  margin-bottom: 5rem;
+  box-shadow: 0 0 0 1px rgba(189, 181, 169, 0.1);
+}
+
+.song-module::before {
+  content: "";
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 L20 0 M180 200 L200 180 M0 180 L20 200 M180 0 L200 20' stroke='%23bdb5a9' stroke-width='0.5' opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 40px 40px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.song-module:hover::before {
+  opacity: 1;
+}
+
+.song-module:nth-child(even) {
+  grid-column: 7 / span 5;
+  background-color: var(--surface-concrete);
+  margin-top: 5vh;
+}
+
+.song-module h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+
+.song-description {
+  color: #3a342e;
+  font-weight: 300;
+}
+
+.module-meta {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(189, 181, 169, 0.2);
+  padding-top: 1.5rem;
+}
+
+/* Vellum Nav */
+.vellum-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--vellum);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.5rem 4vw;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgba(189, 181, 169, 0.1);
+}
+
+.nav-inner {
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  width: 100%;
+}
+
+.nav-title {
+  font-family: 'KH Giga'; 
+  font-weight: 900; 
+  font-size: 1.2rem; 
+  letter-spacing: 0.1em; 
+  margin-bottom: 0.5rem; 
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.nav-links {
+  display: flex; 
+  gap: 3rem;
+}
+
+.nav-links a, .nav-link {
+  display: inline-block;
+  margin: 0;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+  color: var(--metadata-faded);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.nav-links a:hover, .nav-link:hover {
+  color: var(--ink);
+}
+
+.nav-links a.active, .nav-link.active {
+  color: var(--ink);
+}
+
+.nav-links {
+  position: relative;
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-underline {
+  position: absolute;
+  bottom: -4px;
+  height: 2px;
+  background: var(--ink);
+  transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.content-top-buffer {
+  padding-top: 120px !important;
+  animation: pageFadeIn 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Side-by-side Layout Blocks */
+.side-by-side {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+  margin-bottom: 5rem;
+}
+
+.side-by-side > div {
+  flex: 1;
+}
+
+.side-by-side .table-wrapper {
+  flex: 1.2;
+  margin-top: 0;
+}
+
+@media (max-width: 1024px) {
+  .side-by-side {
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
+
+/* Master Audio Banner */
+#audio-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: var(--ink);
+  color: var(--background);
+  display: flex;
+  align-items: center;
+  z-index: 2000;
+  border-top: 1px solid rgba(189, 181, 169, 0.3);
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+#audio-banner.active {
+  transform: translateY(0);
+}
+
+.audio-controls {
+  padding: 0 2rem;
+  border-right: 1px solid rgba(244, 241, 236, 0.1);
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.audio-btn {
+  background: transparent;
+  border: 1px solid var(--background);
+  color: var(--background);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'KH Giga';
+  font-size: 0.6rem;
+  transition: all 0.3s;
+  outline: none;
+}
+
+.audio-btn:hover {
+  background: var(--background);
+  color: var(--ink);
+}
+
+.marquee-container {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  padding-left: 2rem;
+}
+
+.marquee-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+  font-family: 'KH Giga';
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-100%, 0); }
+}
+
+#audio-player { display: none; }
+
+.iso-structure-diagram {
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  width: 150px;
+  height: 150px;
+  background-image: url('assets/img/structure-iso.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  filter: grayscale(100%) sepia(10%) contrast(0.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.song-module.stress-event {
+  background-color: var(--surface-highest);
+  clip-path: polygon(0% 0%, 100% 0%, 95% 45%, 100% 50%, 93% 55%, 100% 100%, 0% 100%, 5% 60%, 0% 50%, 7% 40%);
+  border: 1px solid var(--metal);
+  box-shadow: 0 0 30px rgba(189, 181, 169, 0.2);
+}
+
+@media (max-width: 900px) {
+  .blueprint-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .song-module, .song-module:nth-child(even) {
+    grid-column: span 12;
+    width: 100%;
+    margin-top: 0;
+  }
+}

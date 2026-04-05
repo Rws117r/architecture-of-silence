@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture of Silence | The Album</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { overflow: hidden; height: 100vh; }
+        
+        .album-full-width {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 180px 8% 120px 8%;
+            gap: 8rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .art-block {
+            flex: 1.2;
+            max-width: 450px;
+            position: relative;
+        }
+
+        .art-block img {
+            width: 100%;
+            max-height: 45vh;
+            object-fit: contain;
+        }
+
+        .track-list-block {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--metal);
+            transition: all 0.3s;
+            cursor: pointer;
+            gap: 2rem;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-num {
+            font-family: 'KH Giga';
+            font-size: 0.8rem;
+            color: var(--metadata-faded);
+            width: 30px;
+        }
+
+        .track-title {
+            font-family: 'KH Giga';
+            font-size: 1.2rem;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .track-item:hover .track-title {
+            color: var(--accent);
+            transform: translateX(10px);
+        }
+
+        .track-item:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .play-indicator {
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            color: var(--accent);
+        }
+
+        .track-item:hover .play-indicator {
+            opacity: 1;
+        }
+
+        .album-meta {
+            margin-bottom: 1.5rem;
+        }
+
+        .album-meta h1 {
+            font-size: 2.8rem;
+            line-height: 0.9;
+            margin-bottom: 0.8rem;
+        }
+
+        @media (max-width: 1100px) {
+            .album-full-width {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 150px;
+            }
+            .art-block {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="main-nav" class="vellum-nav"></nav>
+
+    <main class="album-full-width content-top-buffer">
+        <div class="art-block">
+            <img src="assets/img/Album Art.png" alt="Architecture of Silence Album Art">
+        </div>
+
+        <div class="track-list-block">
+            <div class="tracks">
+                <div class="track-item" onclick="triggerGlobalTrack('Gone Before Goodbye', 'assets/audio/01 - Gone Before Goodbye.mp3')">
+                    <span class="track-num">01</span>
+                    <div class="track-info">
+                        <div class="track-title">Gone Before Goodbye</div>
+                        <span class="metadata-label">INTERPRETIVE LAYER // THE OCULUS</span>
+                    </div>
+                    <span class="play-indicator">▷</span>
+                </div>
+
+                <div class="track-item" onclick="triggerGlobalTrack('Say It Like It Holds', 'assets/audio/02 - Say It Like It Holds.mp3')">
+                    <span class="track-num">02</span>
+                    <div class="track-info">
+                        <div class="track-title">Say It Like It Holds</div>
+                        <span class="metadata-label">REINFORCED FRAMEWORK // THE RIBS</span>
+                    </div>
+                    <span class="play-indicator">▷</span>
+                </div>
+
+                <div class="track-item" onclick="triggerGlobalTrack('Let It Sit', 'assets/audio/03 - Let It Sit.mp3')">
+                    <span class="track-num">03</span>
+                    <div class="track-info">
+                        <div class="track-title">Let It Sit</div>
+                        <span class="metadata-label">STRUCTURAL TRANSDUCER // THE LANTERN</span>
+                    </div>
+                    <span class="play-indicator">▷</span>
+                </div>
+
+                <div class="track-item" onclick="triggerGlobalTrack('Set In Motion', 'assets/audio/04 - Set In Motion.mp3')">
+                    <span class="track-num">04</span>
+                    <div class="track-info">
+                        <div class="track-title">Set In Motion</div>
+                        <span class="metadata-label">EXTERNAL SHELL // CRITICAL FRACTURE</span>
+                    </div>
+                    <span class="play-indicator">▷</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="components.js"></script>
+</body>
+</html>
