@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture of Silence | Experimental Protocols</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .experiment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .protocol-card {
+            background: var(--surface-low);
+            padding: 3rem;
+            position: relative;
+            border-left: 4px solid var(--metal);
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: default;
+        }
+
+        .protocol-card:hover {
+            background: var(--surface-concrete);
+            border-left-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .protocol-id {
+            font-family: 'KH Giga';
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--metadata-faded);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .protocol-status {
+            position: absolute;
+            top: 3rem;
+            right: 3rem;
+            font-family: 'KH Giga';
+            font-size: 0.5rem;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.6rem;
+            border: 1px solid var(--metal);
+            color: var(--metadata-faded);
+        }
+
+        .protocol-card:hover .protocol-status {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .protocol-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .protocol-description {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: #3b3530;
+        }
+
+        .next-step-box {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(189, 181, 169, 0.2);
+        }
+
+        .next-step-label {
+            font-family: 'KH Giga';
+            font-size: 0.6rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        @media (max-width: 1000px) {
+            .experiment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hide Scrollbars */
+        * {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        *::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="fracture-canvas">
+    
+    <nav id="main-nav" class="vellum-nav"></nav>
+
+    <main class="archival-container content-top-buffer">
+        <header class="monumental-header" style="margin-bottom: 8vh;">
+            <span class="metadata-label">Experimental Methodology // 2026</span>
+            <h1 class="display-lg">LABORATORY<br>PROTOCOLS</h1>
+            <p class="description-text" style="max-width: 650px; margin-top: 2rem; color: var(--metadata-faded); line-height: 1.8;">
+                This section documents the four primary avenues of structural intervention. These protocols seek to disrupt 
+                the recursive loop of failure and explore materials of flexibility, recalibration, and controlled relief.
+            </p>
+        </header>
+
+        <section class="experiment-grid">
+            <!-- Protocol 1 -->
+            <article class="protocol-card">
+                <span class="protocol-id">PROTOCOL ID: EXP-PR-01</span>
+                <div class="protocol-status">PENDING // ARCHIVAL PERMIT</div>
+                <h3 class="protocol-title">Hypervigilance<br>Loop Intervention</h3>
+                <p class="protocol-description">
+                    When the structural mask cracks, the system misinterprets failure as "insufficient control," triggering 
+                    perpetual hypervigilance. This accelerates the recursive loop, ensuring future ruptures happen 
+                    with increasing velocity.
+                </p>
+                <div class="next-step-box">
+                    <span class="next-step-label">NEXT STEP // OBJECTIVE</span>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Disrupt the post-rupture learning phase. Design a mechanism to force the system 
+                    to diagnose 'over-control' rather than 'insufficient control' following a fracture event.</p>
+                </div>
+            </article>
+
+            <!-- Protocol 2 -->
+            <article class="protocol-card">
+                <span class="protocol-id">PROTOCOL ID: EXP-ME-02</span>
+                <div class="protocol-status">SIMULATION // STAGE 1</div>
+                <h3 class="protocol-title">Psychological<br>Pressure Valve</h3>
+                <p class="protocol-description">
+                    The current model suffers from "absolute retention." The internal ribs can only add tension, 
+                    lacking any mechanism to simplify or de-escalate. The system assumes the mask has infinite capacity 
+                    until it exceeds its threshold.
+                </p>
+                <div class="next-step-box">
+                    <span class="next-step-label">NEXT STEP // OBJECTIVE</span>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Introduce a controlled discharge mechanism. Design a way for the system 
+                    to safely vent internal pressure from the 'Lantern' and 'Oculus' before structural failure occurs.</p>
+                </div>
+            </article>
+
+            <!-- Protocol 3 -->
+            <article class="protocol-card">
+                <span class="protocol-id">PROTOCOL ID: EXP-IT-03</span>
+                <div class="protocol-status">RE-CALIBRATION // IN PROGRESS</div>
+                <h3 class="protocol-title">Oculus Metadata<br>Recalibration</h3>
+                <p class="protocol-description">
+                    The Oculus operates on "Prevention over Accuracy," interpreting neutral events—like silence—as 
+                    immediate risks. These false alarms force the system into unnecessary, destructive over-engineering.
+                </p>
+                <div class="next-step-box">
+                    <span class="next-step-label">NEXT STEP // OBJECTIVE</span>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Tamper with the interpretive layer. Force the Oculus to prioritize accuracy 
+                    over risk-detection to stop the 'Mechanical Clinch' at the point of translation.</p>
+                </div>
+            </article>
+
+            <!-- Protocol 4 -->
+            <article class="protocol-card">
+                <span class="protocol-id">PROTOCOL ID: EXP-BI-04</span>
+                <div class="protocol-status">DEFERRED // ETHICAL REVIEW</div>
+                <h3 class="protocol-title">Boundary Interface<br>Flexibility</h3>
+                <p class="protocol-description">
+                    The concrete mask is rigid with zero adaptability. Sustained microfractures are accumulative 
+                    and irreversible. The more effective the mask is at containment, the more catastrophic the 
+                    eventual rupture becomes.
+                </p>
+                <div class="next-step-box">
+                    <span class="next-step-label">NEXT STEP // OBJECTIVE</span>
+                    <p style="font-size: 0.85rem; opacity: 0.8;">Explore architectural metaphors for elasticity. Contrast the concrete 
+                    barrier with materials designed to bend, breathe, or self-repair under high atmospheric stress.</p>
+                </div>
+            </article>
+        </section>
+
+        <footer style="margin-top: 10rem; padding-bottom: 5rem; border-top: 1px solid var(--metal); padding-top: 2rem;">
+             <span class="metadata-label" style="margin:0;">ARCHIVE SECURED // EXPERIMENTAL DIVISION</span>
+        </footer>
+    </main>
+
+    <script src="components.js"></script>
+</body>
+</html>

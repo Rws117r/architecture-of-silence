@@ -19,6 +19,7 @@ function renderHeader() {
                     <a href="#" data-page="failure.html" class="nav-link">CRITICAL FRACTURE</a>
                     <a href="#" data-page="album.html" class="nav-link">THE ALBUM</a>
                     <a href="#" data-page="research.html" class="nav-link">RESEARCH</a>
+                    <a href="#" data-page="experiment.html" class="nav-link">EXPERIMENTS</a>
                     <div class="nav-underline"></div>
                 </div>
             </div>
